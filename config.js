@@ -164,9 +164,12 @@ class Api {
   }
 
   async deactivateUser(user_name) {
-	await this.axios.put('/user/'+user_name, {
-		"status": "deactivated"
+	const r = await this.axios.put('/user/'+user_name, {
+		status: 'disabled',
+	}, {
+	  headers: {"content-type": "application/json"}
 	})
+	console.log(r.response)
   }
 }
 

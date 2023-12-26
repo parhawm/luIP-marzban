@@ -239,6 +239,12 @@ class IPGuard {
     params.api.create()
     await params.api.token()
     await params.api.deactivateUser(params.email);
+  
+  if (process.env.TG_ENABLE === "true")
+      globalThis.bot.api.sendMessage(
+          process.env.TG_ADMIN,
+          `user ${params.email} disabled successfully.`,
+        );
   }
 }
 
