@@ -161,6 +161,12 @@ class Api {
 
     return nodes;
   }
+
+	async deactivateUser(user_name) {
+		await this.axios.put('/user/'+user_name, {
+			"status": "deactivated"
+		})
+	}
 }
 
 class Connection {

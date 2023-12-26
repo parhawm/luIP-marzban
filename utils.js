@@ -1,6 +1,7 @@
 const fs = require("fs");
 const { spawn } = require("child_process");
 
+
 function banIP(ip, email) {
   const scriptPath = "./ipban.sh";
   const args = [
@@ -81,6 +82,7 @@ class User {
     const index = chunks.findIndex((item) => item === "email:");
 
     const email = chunks[index + 1].split(".")[1].split("\n")[0];
+		console.log(email);
 
     return email;
   };
@@ -219,8 +221,8 @@ class IPGuard {
 
     //
     if (data.ips.length >= maxAllowConnection && indexOfIp === -1) {
-      this.ban({ ip, email: data.email });
-
+      // this.ban({ ip, email: data.email });
+			this.deactivateUser({ email: data.email });
       return;
     }
 
@@ -230,9 +232,10 @@ class IPGuard {
   /**
    * @param {BanIpConfigAddType} params
    */
-  ban(params) {
-    banIP(`${params.ip}`, params.email);
+  deactivateUser(params) {
+    // banIP(`${params.ip}`, params.email);
     // console.log("ban", params);
+		globalThis.api.deactivateUser(params.email);
   }
 }
 
