@@ -47,7 +47,7 @@ def();
       node,
       api,
     });
-		globalThis.api = api;
+    exports.api = api;
     ws.logs();
   }
 })();

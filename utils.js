@@ -1,6 +1,7 @@
 const fs = require("fs");
 const { spawn } = require("child_process");
-
+const { Api } = require("./config");
+const api = new Api();
 
 function banIP(ip, email) {
   const scriptPath = "./ipban.sh";
@@ -222,7 +223,7 @@ class IPGuard {
     //
     if (data.ips.length >= maxAllowConnection && indexOfIp === -1) {
       // this.ban({ ip, email: data.email });
-			this.deactivateUser({ email: data.email });
+      await this.deactivateUser({ email: data.email });
       return;
     }
 
@@ -232,10 +233,12 @@ class IPGuard {
   /**
    * @param {BanIpConfigAddType} params
    */
-  deactivateUser(params) {
+  async deactivateUser(params) {
     // banIP(`${params.ip}`, params.email);
     // console.log("ban", params);
-		globalThis.api.deactivateUser(params.email);
+    api.create()
+    await api.token()
+    await api.deactivateUser(params.email);
   }
 }
 
