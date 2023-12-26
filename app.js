@@ -47,7 +47,6 @@ def();
       node,
       api,
     });
-    exports.api = api;
     ws.logs();
   }
 })();

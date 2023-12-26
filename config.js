@@ -60,6 +60,7 @@ class Ws {
         const item = data[num];
 
         await this.ipGuard.use(
+					this.params.api,
           item.ip,
           () => this.db.read(item.email),
           () =>
