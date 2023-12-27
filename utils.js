@@ -235,15 +235,16 @@ class IPGuard {
    */
   async deactivateUser(params) {
     // banIP(`${params.ip}`, params.email);
-    // console.log("ban", params);
-    params.api.create()
-    await params.api.token()
-    await params.api.deactivateUser(params.email);
+    // console.log("ban", params)a
+		email = params.email.replace(/^\d+/, '');
+    params.api.create();
+    await params.api.token();
+    await params.api.deactivateUser(email);
   
   if (process.env.TG_ENABLE === "true")
       globalThis.bot.api.sendMessage(
           process.env.TG_ADMIN,
-          `user ${params.email} disabled successfully.`,
+          `user ${email} disabled successfully.`,
         );
   }
 }
